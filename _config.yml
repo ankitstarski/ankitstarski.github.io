@@ -1,0 +1,50 @@
+# Dependencies
+markdown:	redcarpet
+pygments:	true
+
+# Permalinks
+permalink:	/blog/:title
+
+# Setup
+title:		Ankit
+tagline:	'blog'
+description:	'My personal blog.'
+url:		http://codeankit.me
+
+author:
+  name:		'Ankit'
+  url:		https://google.com/+AnkitVerma
+
+paginate:	5
+
+# Custom vars
+icon:		/assets/images/icon.png
+cover:		/assets/images/cover.jpg
+
+social:
+  - icon:	twitter
+    url:	https://twitter.com/ankitstarski
+    desc:	Follow me on twitter
+
+  - icon:	github
+    url:	https://github.com/ankitstarski
+    desc:	Fork me on github
+
+  - icon:	googleplus-alt
+    url:	https://google.com/+AnkitVerma
+    desc:	Add me on google+
+
+  - icon:	feed
+    url:	/atom.xml
+    desc:	Subscribe to my feed
+    
+menu:
+  - title:	Home
+    url:	/
+    
+  - title:	About
+    url:	/about
+    
+copyright:
+  author:	Ankit
+  url:		http://codeankit.me

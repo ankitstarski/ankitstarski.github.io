@@ -4,13 +4,73 @@
  <title>Ankit</title>
  <link href="http://codeankit.me/atom.xml" rel="self"/>
  <link href="http://codeankit.me/"/>
- <updated>2015-05-07T06:41:38+05:30</updated>
+ <updated>2015-05-21T04:23:58+05:30</updated>
  <id>http://codeankit.me</id>
  <author>
    <name>Ankit</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Sharing mobile GPS with PC</title>
+   <link href="http://codeankit.me/blog/GSoC-Geoclue"/>
+   <updated>2015-05-21T00:00:00+05:30</updated>
+   <id>http://codeankit.me/blog/GSoC-Geoclue</id>
+   <content type="html">&lt;p&gt;This is my first post for &lt;a href=&quot;http://planet.gnome.org&quot;&gt;Planet GNOME&lt;/a&gt; regarding my 
+&lt;a href=&quot;http://google-melange.com/gsoc/homepage/google/gsoc2015&quot;&gt;GSoC 2015&lt;/a&gt; 
+&lt;a href=&quot;https://wiki.gnome.org/Outreach/SummerOfCode/2015/Projects/Ankit_GPSSharing&quot;&gt;Project&lt;/a&gt; under the
+mentorship of &lt;a href=&quot;https://wiki.gnome.org/ZeeshanAli&quot;&gt;Zeeshan Ali (Khattak)&lt;/a&gt;. 
+This summer, I am working on a project to let GNOME users access GPS location (shared) 
+from a GPS source. Android devices are among the most common GPS sources. So, a 
+part of this project will be on Android. This android application will work as a 
+location server for &lt;a href=&quot;http://freedesktop.org/wiki/Software/GeoClue/&quot;&gt;Geoclue&lt;/a&gt;. 
+This server will be discoverable via mDNS clients like &lt;a href=&quot;http://en.wikipedia.org/wiki/Avahi_%28software%29&quot;&gt;Avahi&lt;/a&gt; 
+and &lt;a href=&quot;http://en.wikipedia.org/wiki/Bonjour_%28software%29&quot;&gt;Bonjour&lt;/a&gt;. &lt;/p&gt;
+
+&lt;div&gt;&lt;img src=&quot;/media/2015-05-21-GSoC-Geoclue/location-sharing-apps.png&quot; alt=&quot;Tentative design of Android application&quot; width=&quot;100%&quot; /&gt;
+&lt;blockquote style=&quot;border-left: 10px solid #D5D5D5;&quot;&gt;Tentative design of Android application&lt;/blockquote&gt;&lt;/div&gt;
+
+&lt;p&gt;In a broad sense, Android application will use &lt;a href=&quot;http://developer.android.com/reference/java/net/ServerSocket.html&quot;&gt;ServerSocket&lt;/a&gt; 
+to communicate with Geoclue. Each time Android &lt;a href=&quot;http://developer.android.com/reference/android/location/LocationListener.html&quot;&gt;LocationListener&lt;/a&gt; listens to a new Location, it will transmit that location data to Geoclue in form
+of &lt;a href=&quot;http://www.gpsinformation.org/dale/nmea.htm#nmea&quot;&gt;NMEA sentence&lt;/a&gt;. Geoclue takes 
+that location information and passes it on as GPS location. Apart from the android application, 
+GUI application for Geoclue to Geoclue location passing is to be developed.&lt;/p&gt;
+
+&lt;h4&gt;Timeline followed by the project will be as follows:&lt;/h4&gt;
+
+&lt;table&gt;&lt;tbody&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 1 and 2 &lt;/td&gt;
+  &lt;td&gt;Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 3 and 4 &lt;/td&gt;
+  &lt;td&gt;Working skeleton of Android app that will connect with Geoclue and send information. This will be followed by implementation of communication over &lt;a class=&quot;nonexistent&quot; href=&quot;/WiFi&quot;&gt;WiFi&lt;/a&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 5 and 6 &lt;/td&gt;
+  &lt;td&gt;Implementation over Bluetooth interface. This part will include implementation of Bluetooth communication.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 7 and 8 &lt;/td&gt;
+  &lt;td&gt;Implementation over USB interface.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 9 and 10 &lt;/td&gt;
+  &lt;td&gt;Implementation of more seamless connectivity using &lt;em&gt;Android NSD&lt;/em&gt; and &lt;em&gt;Avahi&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 11 and 12 &lt;/td&gt;
+  &lt;td&gt;Android application UI/UX improvements. Integration of all three communication interfaces in one and optimization.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Week 13 &lt;/td&gt;
+  &lt;td&gt;Testing, optimization, bug fixing and wrapping up.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Who am I? O.o</title>

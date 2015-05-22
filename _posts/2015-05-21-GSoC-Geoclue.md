@@ -25,31 +25,31 @@ GUI application for Geoclue to Geoclue location passing is to be developed.
 #### Timeline followed by the project will be as follows:
 <table><tbody>
 <tr>
-	<td>Week 1 and 2 </td>
-  <td>Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.</td>
+	<td style="min-width:150px;border:1px solid black">Week 1 and 2 </td>
+  <td style="border:1px solid black">Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.</td>
 </tr>
 <tr>
-	<td>Week 3 and 4 </td>
-  <td>Working skeleton of Android app that will connect with Geoclue and send information. This will be followed by implementation of communication over <a class="nonexistent" href="/WiFi">WiFi</a>.</td>
+	<td style="min-width:150px;border:1px solid black">Week 3 and 4 </td>
+  <td style="border:1px solid black">Geoclue Location source continued.</td>
 </tr>
 <tr>
-	<td>Week 5 and 6 </td>
-  <td>Implementation over Bluetooth interface. This part will include implementation of Bluetooth communication.</td>
+	<td style="min-width:150px;border:1px solid black">Week 5 and 6 </td>
+  <td style="border:1px solid black">Working skeleton of Android application that will connect with Geoclue and send information.</td>
 </tr>
 <tr>
-	<td>Week 7 and 8 </td>
-  <td>Implementation over USB interface.</td>
+	<td style="min-width:150px;border:1px solid black">Week 7 and 8 </td>
+  <td style="border:1px solid black"><em>Geoclue GUI</em> for Geoclue to Geoclue sharing.</td>
 </tr>
 <tr>
-	<td>Week 9 and 10 </td>
-  <td>Implementation of more seamless connectivity using <em>Android NSD</em> and <em>Avahi</em>.</td>
+	<td style="min-width:150px;border:1px solid black">Week 9 and 10 </td>
+  <td style="border:1px solid black">Implementation of more seamless connectivity using <em>Android NSD</em> and <em>Avahi</em>.</td>
 </tr>
 <tr>
-	<td>Week 11 and 12 </td>
-  <td>Android application UI/UX improvements. Integration of all three communication interfaces in one and optimization.</td>
+	<td style="min-width:150px;border:1px solid black">Week 11 and 12 </td>
+  <td style="border:1px solid black">Android application UI/UX improvements.</td>
 </tr>
 <tr>
-	<td>Week 13 </td>
-  <td>Testing, optimization, bug fixing and wrapping up.</td>
+	<td style="min-width:150px;border:1px solid black">Week 13 </td>
+  <td style="border:1px solid black">Testing, optimization, bug fixing and wrapping up.</td>
 </tr>
 </tbody></table>

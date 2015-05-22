@@ -4,7 +4,7 @@
  <title>Ankit</title>
  <link href="http://codeankit.me/atom.xml" rel="self"/>
  <link href="http://codeankit.me/"/>
- <updated>2015-05-21T04:23:58+05:30</updated>
+ <updated>2015-05-22T21:32:33+05:30</updated>
  <id>http://codeankit.me</id>
  <author>
    <name>Ankit</name>
@@ -41,32 +41,32 @@ GUI application for Geoclue to Geoclue location passing is to be developed.&lt;/
 
 &lt;table&gt;&lt;tbody&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 1 and 2 &lt;/td&gt;
-  &lt;td&gt;Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 1 and 2 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 3 and 4 &lt;/td&gt;
-  &lt;td&gt;Working skeleton of Android app that will connect with Geoclue and send information. This will be followed by implementation of communication over &lt;a class=&quot;nonexistent&quot; href=&quot;/WiFi&quot;&gt;WiFi&lt;/a&gt;.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 3 and 4 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;Geoclue Location source continued.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 5 and 6 &lt;/td&gt;
-  &lt;td&gt;Implementation over Bluetooth interface. This part will include implementation of Bluetooth communication.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 5 and 6 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;Working skeleton of Android application that will connect with Geoclue and send information.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 7 and 8 &lt;/td&gt;
-  &lt;td&gt;Implementation over USB interface.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 7 and 8 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;&lt;em&gt;Geoclue GUI&lt;/em&gt; for Geoclue to Geoclue sharing.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 9 and 10 &lt;/td&gt;
-  &lt;td&gt;Implementation of more seamless connectivity using &lt;em&gt;Android NSD&lt;/em&gt; and &lt;em&gt;Avahi&lt;/em&gt;.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 9 and 10 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;Implementation of more seamless connectivity using &lt;em&gt;Android NSD&lt;/em&gt; and &lt;em&gt;Avahi&lt;/em&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 11 and 12 &lt;/td&gt;
-  &lt;td&gt;Android application UI/UX improvements. Integration of all three communication interfaces in one and optimization.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 11 and 12 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;Android application UI/UX improvements.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td&gt;Week 13 &lt;/td&gt;
-  &lt;td&gt;Testing, optimization, bug fixing and wrapping up.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 13 &lt;/td&gt;
+  &lt;td style=&quot;border:1px solid black&quot;&gt;Testing, optimization, bug fixing and wrapping up.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;
 </content>

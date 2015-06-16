@@ -4,13 +4,132 @@
  <title>Ankit</title>
  <link href="http://codeankit.me/atom.xml" rel="self"/>
  <link href="http://codeankit.me/"/>
- <updated>2015-05-22T21:32:33+05:30</updated>
+ <updated>2015-06-16T20:36:04+05:30</updated>
  <id>http://codeankit.me</id>
  <author>
    <name>Ankit</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Network location sharing</title>
+   <link href="http://codeankit.me/blog/nmea-source"/>
+   <updated>2015-06-16T00:00:00+05:30</updated>
+   <id>http://codeankit.me/blog/nmea-source</id>
+   <content type="html">&lt;p&gt;So, this post is about a new Geoclue feature that will let Geoclue users share
+location data. Location data will be sent from a GPS enabled device to a Geoclue device over local network. 
+This is part of a GSoC 2015 project. You can read more about it &lt;a href=&quot;https://wiki.gnome.org/Outreach/SummerOfCode/2015/Projects/Ankit_GPSSharing&quot;&gt;here&lt;/a&gt;.  &lt;/p&gt;
+
+&lt;h4&gt;What will this module do?&lt;/h4&gt;
+
+&lt;p&gt;Using &lt;code&gt;GClueNMEASource&lt;/code&gt;, Geoclue will be able to receive and parse location data sent 
+from a GPS enabled network device. For this we&amp;#39;ll have to create a location service on 
+the GPS device that would let it send location data in the form of &lt;a href=&quot;http://www.gpsinformation.org/dale/nmea.htm#GGA&quot;&gt;GGA sentences&lt;/a&gt;. &lt;code&gt;GClueNMEASource&lt;/code&gt; uses &lt;code&gt;libgio&lt;/code&gt;&amp;#39;s asynchronous 
+GSockets for network communication purpose.&lt;/p&gt;
+
+&lt;h4&gt;Protocol&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Since the GPS device will be acting as Location server, Geoclue will first need to 
+find and connect with it. For this we&amp;#39;ll be using mDNS service on the GPS device 
+and detect that service on the Geoclue end.&lt;/li&gt;
+&lt;li&gt;Once the connection between &lt;code&gt;GClueNMEASource&lt;/code&gt; and location server is established, location server 
+will firstly send the size of GGA sentence as 32-bit unsigned integer in network 
+byte order.&lt;/li&gt;
+&lt;li&gt;After sending the size of GGA sentence, location server will send the GGA sentence containing 
+location data.&lt;/li&gt;
+&lt;li&gt;This will be repeated every-time new location data is available on GPS device 
+and connection between the devices is alive.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4&gt;What&amp;#39;s been done at Geoclue end?&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Geoclue is currently able to connect with a dummy location server.&lt;/li&gt;
+&lt;li&gt;It can successfully receive GGA sentences and parse it into a Location object.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4&gt;What might a dummy server look like?&lt;/h4&gt;
+
+&lt;p&gt;Following is the python implementation for a dummy location server which continuously sends
+pseudo location data in the form of GGA sentences:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;#!/usr/bin/python
+import socket, struct
+import time, math
+import random, re
+
+class DummyNMEAServer:
+  &quot;&quot;&quot; This is a fake NMEA Sentence server. &quot;&quot;&quot;
+
+  HOST = &#39;&#39;
+  PORT = 12345
+
+  def __init__(self):
+    self.socket = socket.socket()
+    self.c = None
+
+  def checksum(self, sentence):
+    &quot;&quot;&quot; Source: http://code.activestate.com/recipes/576789-nmea-sentence-checksum/ &quot;&quot;&quot;
+    if re.search(&quot;\n$&quot;, sentence):
+        sentence = sentence[:-1]
+
+    calc_cksum = 0
+    for s in sentence:
+        calc_cksum ^= ord(s)
+
+    &quot;&quot;&quot; Return the nmeadata, the checksum from
+        sentence, and the calculated checksum
+    &quot;&quot;&quot;
+    return format(calc_cksum, &#39;x&#39;)
+
+  def run(self):
+    &quot;&quot;&quot; Sends dummy location info of coordinates moving around (0, 0)
+      in circular pattern &quot;&quot;&quot;
+    s = self.socket
+    s.bind((DummyNMEAServer.HOST, DummyNMEAServer.PORT))
+    s.listen(5)
+    while True:
+      c, addr = s.accept()
+      self.c = c
+      print &#39;Got connection from&#39;, addr
+      lat = lon = 0
+      cy = cx = 0.0
+      r = 4.3
+      t = 0
+      latS = lonS = &quot;&quot;
+
+      while True:
+        for i in range(360):
+          lat = cx + math.cos(i / 180.0 * math.pi) * r
+          lon = cy + math.sin(i / 180.0 * math.pi) * r
+
+          t = time.strftime(&quot;%H%M%S&quot;, time.gmtime(time.time()))
+
+          latS = &#39;N&#39; if lat &gt;= 0 else &#39;S&#39;
+          lonS = &#39;E&#39; if lon &gt;= 0 else &#39;W&#39;
+
+          print t
+          gga = &quot;$GPGGA,%s,%02d%06.3f,%s,%03d%06.3f,%s,1,08,0.9,545.4,M,46.9,M,,&quot;%(
+            t, abs(lat), abs((lat-int(lat))*60), latS,
+            abs(lon), abs((lon-int(lon))*60), lonS)
+          gga = gga + &quot;*&quot; + str(self.checksum(gga))
+          size = struct.pack(&quot;!L&quot;,len(gga))
+          c.send(size)
+          print(len(gga))
+          print gga
+          c.send(gga)
+          time.sleep(random.randint(1,10))
+    c.close()       
+
+app = DummyNMEAServer();
+app.run();&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div&gt;&lt;img src=&quot;/media/2015-06-16-nmea-source/where-am-i.png&quot; alt=&quot;A screenshot of demo app while receiving location from dummy server&quot; /&gt;
+&lt;blockquote style=&quot;border-left: 10px solid #D5D5D5;&quot;&gt;A screenshot of demo app while receiving location from dummy server&lt;/blockquote&gt;&lt;/div&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Sharing mobile GPS with PC</title>
@@ -41,32 +160,32 @@ GUI application for Geoclue to Geoclue location passing is to be developed.&lt;/
 
 &lt;table&gt;&lt;tbody&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 1 and 2 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 1 and 2 &lt;/td&gt;
+  &lt;td&gt;Experiments with the code and implementation of a basic layout for new Geoclue location source. This Geoclue location source would be able to take in NMEA GGA sentences and convert into location object.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 3 and 4 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;Geoclue Location source continued.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 3 and 4 &lt;/td&gt;
+  &lt;td&gt;Geoclue Location source continued.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 5 and 6 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;Working skeleton of Android application that will connect with Geoclue and send information.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 5 and 6 &lt;/td&gt;
+  &lt;td&gt;Working skeleton of Android application that will connect with Geoclue and send information.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 7 and 8 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;&lt;em&gt;Geoclue GUI&lt;/em&gt; for Geoclue to Geoclue sharing.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 7 and 8 &lt;/td&gt;
+  &lt;td&gt;&lt;em&gt;Geoclue GUI&lt;/em&gt; for Geoclue to Geoclue sharing.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 9 and 10 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;Implementation of more seamless connectivity using &lt;em&gt;Android NSD&lt;/em&gt; and &lt;em&gt;Avahi&lt;/em&gt;.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 9 and 10 &lt;/td&gt;
+  &lt;td&gt;Implementation of more seamless connectivity using &lt;em&gt;Android NSD&lt;/em&gt; and &lt;em&gt;Avahi&lt;/em&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 11 and 12 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;Android application UI/UX improvements.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 11 and 12 &lt;/td&gt;
+  &lt;td&gt;Android application UI/UX improvements.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-    &lt;td style=&quot;min-width:150px;border:1px solid black&quot;&gt;Week 13 &lt;/td&gt;
-  &lt;td style=&quot;border:1px solid black&quot;&gt;Testing, optimization, bug fixing and wrapping up.&lt;/td&gt;
+    &lt;td style=&quot;min-width:150px&quot;&gt;Week 13 &lt;/td&gt;
+  &lt;td&gt;Testing, optimization, bug fixing and wrapping up.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;
 </content>

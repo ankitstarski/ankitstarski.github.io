@@ -48,7 +48,7 @@ class DummyNMEAServer:
   """ This is a fake NMEA Sentence server. """
 
   HOST = ''
-  PORT = 12345
+  PORT = 60793
 
   def __init__(self):
     self.socket = socket.socket()
@@ -110,4 +110,8 @@ class DummyNMEAServer:
 app = DummyNMEAServer();
 app.run();</code></pre></div>
 
+<br/>
+
 {% include image.html url="/media/2015-06-16-nmea-source/where-am-i.png" description="A screenshot of demo app while receiving location from dummy server" %}
+
+Note: This a work in progress and is not yet available in the main repository. You can access patches at [https://bugs.freedesktop.org/show_bug.cgi?id=90974](https://bugs.freedesktop.org/show_bug.cgi?id=90974)

@@ -4,13 +4,52 @@
  <title>Ankit</title>
  <link href="http://codeankit.me/atom.xml" rel="self"/>
  <link href="http://codeankit.me/"/>
- <updated>2015-07-07T18:57:37+05:30</updated>
+ <updated>2015-08-02T03:22:46+05:30</updated>
  <id>http://codeankit.me</id>
  <author>
    <name>Ankit</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>mDNS integration</title>
+   <link href="http://codeankit.me/blog/mdns-integration"/>
+   <updated>2015-07-20T00:00:00+05:30</updated>
+   <id>http://codeankit.me/blog/mdns-integration</id>
+   <content type="html">&lt;p&gt;This is a progress report for my GSoC project on &lt;a href=&quot;https://wiki.gnome.org/Outreach/SummerOfCode/2015/Projects/Ankit_GPSSharing&quot;&gt;GPS Sharing&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4&gt;What&amp;#39;s done since the last blog post?&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Integration of mDNS in Android application using an opensource library for
+Java called &lt;a href=&quot;http://jmdns.sourceforge.net&quot;&gt;&lt;code&gt;JmDNS&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Integration of Avahi inside Geoclue&amp;#39;s Network NMEA source.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;mDNS in Android is to be used for service broadcast, the service is supposed to
+be named as &lt;code&gt;&amp;lt;hostname&amp;gt;-nmea-tcp-&amp;lt;accuracy_nick&amp;gt;&lt;/code&gt;. The &lt;code&gt;accuracy_nick&lt;/code&gt; will be a string, defining 
+the accuracy of the source. The accuracy nicks can be found in Geoclue&amp;#39;s &lt;a href=&quot;http://www.freedesktop.org/software/geoclue/docs/geoclue-gclue-enums.html&quot;&gt;public api&lt;/a&gt;.
+An example of service name could be &lt;code&gt;geoclue-nmea-tcp-exact&lt;/code&gt;. The service type of the 
+broadcasted service is &lt;em&gt;nmea.&lt;/em&gt;tcp at port number 10110 in local domain.&lt;/p&gt;
+
+&lt;p&gt;Geoclue&amp;#39;s Network NMEA source discovers services with &lt;code&gt;_nmea._tcp&lt;/code&gt; service type in 
+the local domain. The Network NMEA source keeps a list of services sorted by their accuracy levels (highest first).
+Whenever a client connects to geoclue, it checks for the service with highest accuracy level and tries to connect with it, 
+which then starts the flow of NMEA GGA sentences from android device.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;Note: This a work in progress and is not yet available in the main repository. Android application source can be accessed &lt;a href=&quot;https://github.com/ankitstarski/GeoclueShare&quot;&gt;here&lt;/a&gt;. And Geoclue patches &lt;a href=&quot;https://bugs.freedesktop.org/show_bug.cgi?id=90974&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr/&gt;
+
+&lt;h4&gt;EDIT:&lt;/h4&gt;
+
+&lt;p&gt;Instead of using service name for sharing accuracy with Geoclue, we are now using 
+&lt;code&gt;mDNS&lt;/code&gt; &lt;code&gt;TXT&lt;/code&gt; records for sharing accuracy of the device.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Geoclue Share</title>
